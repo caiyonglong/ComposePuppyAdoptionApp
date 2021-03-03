@@ -1,3 +1,18 @@
+/*
+ * Copyright 2021 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.example.androiddevchallenge.ui.data
 
 import com.example.androiddevchallenge.R
@@ -22,7 +37,7 @@ val puppies = mutableListOf<Puppy>(
         "Bichon Frise",
         R.drawable.puppy4,
         "The Border Collie is a very well-proportioned, medium-sized, robust-looking dog. The displayed elegance and agility are commensurate with physique and energy. His body is solid, muscular, with a smooth outline, giving the impression of effortless movement and infinite endurance. This characteristic makes him the number one shepherd dog in the world IQ. He is energetic, alert and enthusiastic. IQ is comparable to that of a 6 to 8 year old child, and being smart is one of his characteristics.\n" +
-                "The personality is good at sports, medium body shape, showing elegance and alertness at the same time, and with perseverance, lasting temperament, alert, full of vitality, and full of enthusiasm, with strong endurance and running ability. Tact is its distinguishing feature."
+            "The personality is good at sports, medium body shape, showing elegance and alertness at the same time, and with perseverance, lasting temperament, alert, full of vitality, and full of enthusiasm, with strong endurance and running ability. Tact is its distinguishing feature."
     ),
     Puppy(
         "Pug",

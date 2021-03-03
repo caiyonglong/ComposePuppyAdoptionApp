@@ -21,18 +21,21 @@ import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.*
+import androidx.compose.material.Scaffold
+import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.ImageBitmap
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -54,70 +57,71 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-}
 
-// Start building your app here!
-@Composable
-fun MyApp(onClick: ((Puppy) -> Unit)? = null) {
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = {
-                    Text(text = "PuppyAdoption")
-                }
+    // Start building your app here!
+    @Composable
+    fun MyApp(onClick: ((Puppy) -> Unit)? = null) {
+        Scaffold(
+            topBar = {
+                TopAppBar(
+                    title = {
+                        Text(text = "PuppyAdoption")
+                    }
+                )
+            }
+        ) { innerPadding ->
+            PuppyList(puppies = puppies, onClick)
+        }
+    }
+
+    @Composable
+    fun PuppyList(puppies: List<Puppy>, onClick: ((Puppy) -> Unit)? = null) {
+        LazyColumn() {
+            items(puppies) { puppy ->
+                PuppyRow(puppy, onClick)
+            }
+        }
+    }
+
+    @Composable
+    fun PuppyRow(it: Puppy, onClick: ((Puppy) -> Unit)? = null) {
+        val image = painterResource(it.imageResId)
+        val imageModifier = Modifier
+            .requiredHeight(180.dp)
+            .fillMaxWidth()
+            .clip(shape = RoundedCornerShape(4.dp))
+        Column(
+            Modifier
+                .clickable(
+                    onClick = {
+                        onClick?.invoke(it)
+                    }
+                )
+                .padding(8.dp)
+        ) {
+            Image(
+                painter = image, contentDescription = "",
+                modifier = imageModifier,
+                contentScale = ContentScale.Crop
             )
-        }
-    ) { innerPadding ->
-        PuppyList(puppies = puppies, onClick)
-    }
-}
-
-@Composable
-fun PuppyList(puppies: List<Puppy>, onClick: ((Puppy) -> Unit)? = null) {
-    LazyColumn() {
-        items(puppies) { puppy ->
-            PuppyRow(puppy, onClick)
+            Spacer(modifier = Modifier.requiredHeight(4.dp))
+            Text(text = it.name, style = typography.body1)
         }
     }
-}
 
-@Composable
-fun PuppyRow(it: Puppy, onClick: ((Puppy) -> Unit)? = null) {
-    val image = painterResource(it.imageResId)
-    val imageModifier = Modifier
-        .requiredHeight(180.dp)
-        .fillMaxWidth()
-        .clip(shape = RoundedCornerShape(4.dp))
-    Column(
-        Modifier
-            .clickable(
-                onClick = {
-                    onClick?.invoke(it)
-                })
-            .padding(8.dp)
-    ) {
-        Image(
-            painter = image, contentDescription = "",
-            modifier = imageModifier,
-            contentScale = ContentScale.Crop
-        )
-        Spacer(modifier = Modifier.requiredHeight(4.dp))
-        Text(text = it.name, style = typography.body1)
+    @Preview("Light Theme", widthDp = 360, heightDp = 640)
+    @Composable
+    fun LightPreview() {
+        MyTheme {
+            MyApp()
+        }
     }
-}
 
-@Preview("Light Theme", widthDp = 360, heightDp = 640)
-@Composable
-fun LightPreview() {
-    MyTheme {
-        MyApp()
-    }
-}
-
-@Preview("Dark Theme", widthDp = 360, heightDp = 640)
-@Composable
-fun DarkPreview() {
-    MyTheme(darkTheme = true) {
-        MyApp()
+    @Preview("Dark Theme", widthDp = 360, heightDp = 640)
+    @Composable
+    fun DarkPreview() {
+        MyTheme(darkTheme = true) {
+            MyApp()
+        }
     }
 }
